@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - Gym</title>
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    
+
+</head>
+<body>
+     <!-- Start Header  -->
+ <header>
+    <div class="container">
+        <div class="logo">
+             <a href="{% url 'home'%}">Fitness <span>Hub</span></a>
+             
+                <a href="javascript:history.back()" class="back-btn">
+                    <img src="{% static 'images\back-button.png' %}" alt="Logo">
+                </a>
+        
+      
+    
+        </div>
+    </div>
+</header>
+<!-- End Header  -->
+
+
+</section>
+    <div class="form-container content">
+        <h2>Login to Fitness Hub</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p>New user? <a href="{% url 'register' %}">Create an account</a></p>
+    </div>
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+
+</body>
+</html>

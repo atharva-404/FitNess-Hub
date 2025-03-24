@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Hub | Select Trainer</title>
+    <link rel="stylesheet" href="{% static 'css/premium.css' %}">
+ 
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                 <a href="">Fitness <span>Hub</span></a>
+            </div>
+              <span></span>	
+              <span></span>
+            </a>
+        
+            </div>
+        </div>
+    </header>
+    <!-- End Header  -->
+    <div class="container">
+        <h2>Select Your Trainer</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="trainers">
+                {% for trainer in trainers %}
+                <div class="trainer-card">
+                    <h3>{{ trainer.name }}</h3>
+                    <p>Expertise: {{ trainer.expertise }}</p>
+                    <p>Experience: {{ trainer.experience }} years</p>
+                    <input type="radio" name="trainer" value="{{ trainer.id }}"> Select
+                </div>
+                {% endfor %}
+            </div>
+            <div class="fitness-goal">
+                <h3>Choose Your Goal</h3>
+                <div class="goal-options">
+                    <div class="goal-card">
+                        <input type="radio" id="weight_gain" name="fitness_goal" value="weight_gain">
+                        <label for="weight_gain">Weight Gain</label>
+                    </div>
+                    <div class="goal-card">
+                        <input type="radio" id="weight_loss" name="fitness_goal" value="weight_loss">
+                        <label for="weight_loss">Weight Loss</label>
+                    </div>
+                    <div class="goal-card">
+                        <input type="radio" id="muscle_gain" name="fitness_goal" value="muscle_gain">
+                        <label for="muscle_gain">Muscle Gain</label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('.goal-card').forEach(card => {
+            card.addEventListener('click', function () {
+                document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                this.querySelector('input').checked = true;
+            });
+        });
+    </script>
+    
+</body>
+</html>

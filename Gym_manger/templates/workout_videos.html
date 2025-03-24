@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Video Library</title>
+    <link rel="stylesheet" href="{% static 'css/video.css' %}">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home'%}">Fitness <span>Hub</span></a>
+               
+            </div>
+            <a href="javascript:history.back()" class="back-btn">
+                <img src="{% static 'images\back-button.png' %}" alt="Logo">
+            </a>
+        </div>
+    </header>
+
+
+<h2>Workout Video Library</h2>
+
+<!-- Filter Options -->
+<form method="GET">
+    <select name="category" onchange="this.form.submit()">
+        <option value="">All Workouts</option>
+        <option value="cardio">Cardio</option>
+        <option value="strength">Strength</option>
+        <option value="yoga">Yoga</option>
+        <option value="hiit">HIIT</option>
+    </select>
+</form>
+
+<!-- Video Display -->
+<div class="video-container">
+    {% for video in videos %}
+        <div class="video-card">
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.description }}</p>
+            <iframe width="300" height="200" src="{{ video.video_url }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    {% endfor %}
+</div>
+
+</body>

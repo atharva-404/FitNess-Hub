@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Hub- Premium Supplements</title>
+    <meta name="description" content="Shop premium protein supplements, creatine, pre-workout, and shilajit at Fitness Club. Boost your performance and achieve your fitness goals.">
+    <link rel="stylesheet" href="{% static 'css/protin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home' %}">Fitness <span>Hub</span></a>
+            </div>
+            <a href="javascript:history.back()" class="back-btn">
+                <img src="{% static 'images\back-button.png' %}" alt="Logo">
+            </a>
+ 
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="product-page">
+        <section class="product-categories">
+            <div class="container">
+                <!-- Creatine Products -->
+                <div class="category-section" id="creatine">
+                    <h2>Creatine Supplements</h2>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <img src="{% static 'images/creatin.webp' %}" alt="Creatine Monohydrate">
+                            <div class="product-info">
+                                <h3>Creatine Monohydrate</h3>
+                                <p class="price">₹949</p>
+                                <p class="description">Pure micronized creatine for enhanced strength and performance</p>
+                                <a href="https://www.muscleblaze.com/sv/muscleblaze-creatine-monohydrate-creamp/SP-33852?navKey=VRNT-74477&itracker=w:menuLanding||;p:1|;e:74477|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                        <article class="product-card">
+                            <img src="{% static 'images/creatin2.webp' %}" alt="Creatine Monohydrate">
+                            <div class="product-info">
+                                <h3>Creatine HCL</h3>
+                                <p class="price">₹6,599</p>
+                                <p class="description">Highly soluble creatine for faster absorption</p>
+                                <a href="https://www.muscleblaze.com/sv/muscleblaze-biozyme-gold-100-whey/SP-130031?navKey=VRNT-264727&itracker=w:home|blockbuster-deals|;" target="_blank" class="buy-now-btn">Buy Now</a>                            </div>
+                        </article>
+                        <article class="product-card">
+                            <img src="{% static 'images/cratain3.png' %}" alt="Creatine Monohydrate">
+                            <div class="product-info">
+                                <h3>Creatine Blend</h3>
+                                <p class="price">₹599</p>
+                                <p class="description">Advanced formula combining multiple types of creatine</p>
+                                <a href="https://www.muscleblaze.com/sv/muscleblaze-pre-workout-200-xtreme/SP-107096?navKey=VRNT-200194&itracker=w:search||searchedTerm-MB%20PRE-%20WORKOUT%20200%20XTREME%20200mg%20CAFFEINE*%203000mg%20L-CITRULLINE%20DL-MALATE*%202000mg%20BETA-ALANINE*%20Fruit%20Punch%20Flavour%20100g|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                               <!-- Protein Products -->
+                               <div class="category-section" id="protein">
+                                <h2>Protein Supplements</h2>
+                                <div class="product-grid">
+                                    <article class="product-card">
+                                        <img src="{% static 'images/cratain7.webp' %}" alt="Whey Protein Isolate">
+                                        <div class="product-info">
+                                            <h3>Whey Protein Isolate</h3>
+                                            <p class="price">₹2,099</p>
+                                            <p class="description">24g protein per serving, low lactose</p>
+                                            <a href="https://www.muscleblaze.com/sv/muscleblaze-80-raw-whey-protein-supplement-powder/SP-40454?navKey=VRNT-77192&itracker=w:search||searchedTerm-Protein%20Supplements|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                                        </div>
+                                    </article>
+                                    <article class="product-card">
+                                        <img src="{% static 'images/cratain8.webp' %}" alt="Casein Protein">
+                                        <div class="product-info">
+                                            <h3>Casein Protein</h3>
+                                            <p class="price">₹8,099</p>
+                                            <p class="description">Slow-digesting protein for muscle recovery</p>
+                                            <a href="https://www.muscleblaze.com/sv/muscleblaze-80-raw-whey-protein-supplement-powder/SP-40454?navKey=VRNT-73781&itracker=w:search||searchedTerm-Protein%20Supplements|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                                        </div>
+                                    </article>
+                                    <article class="product-card">
+                                        <img src="{% static 'images/cratain9.webp' %}" alt="Vegan Protein">
+                                        <div class="product-info">
+                                            <h3>Vegan Protein</h3>
+                                            <p class="price">₹5,449</p>
+                                            <p class="description">Plant-based protein with essential amino acids</p>
+                                            <a href="https://www.muscleblaze.com/sv/muscleblaze-100-whey-protein-supplement-powder-with-digestive-enzyme/SP-33626?navKey=VRNT-130987&itracker=w:search||searchedTerm-Protein%20Supplements|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+            
+
+                <!-- Pre-Workout Products -->
+                <div class="category-section" id="pre-workout">
+                    <h2>Pre-Workout Supplements</h2>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <img src="{% static '/images/cratain5.webp' %}" alt="Pre-Workout Energy">
+                            <div class="product-info">
+                                <h3>Pre-Workout Energy</h3>
+                                <p class="price">₹1,999</p>
+                                <p class="description">High-energy formula with caffeine and beta-alanine</p>
+                                <a href="https://www.muscleblaze.com/sv/muscleblaze-pre-workout-wrathx/SP-99770?navKey=VRNT-185748&itracker=w:search||searchedTerm-Pre-Workout%20Supplements|;p:1|;e:185748|;" target="_blank" class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                        <article class="product-card">
+                            <img src="{% static 'images/cratain6.png' %}" alt="Pre-Workout Pump">
+                            <div class="product-info">
+                                <h3>Pre-Workout Pump</h3>
+                                <p class="price">₹1,399</p>
+                                <p class="description">Nitric oxide booster for enhanced vascularity</p>
+                                <a href="https://www.muscleblaze.com/sv/muscleblaze-pre-workout-alter-ego-by-saket/SP-127949?navKey=VRNT-246201&itracker=w:search||searchedTerm-Pre-Workout%20Supplements|;p:13|;e:246201|;"target="_blank" class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+ 
+                <!-- Shilajit Products -->
+                <div class="category-section" id="shilajit">
+                    <h2>Shilajit Supplements</h2>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <img src="{% static 'images/cratain10.webp' %}" alt="Pure Shilajit Resin">
+                            <div class="product-info">
+                                <h3>Pure Shilajit Resin</h3>
+                                <p class="price">₹1,299</p>
+                                <p class="description">Himalayan-sourced fulvic acid complex</p>
+                                <a href="https://www.muscleblaze.com/pk/muscleblaze-creatine-monohydrate-creamp-100g-n-koshaveda-shilajit-pro-20g-combo?navKey=PA-130391&itracker=w:related-products|;p:1|;c:Shilajit%20Supplements|;e:3|;&ac_sel=muscleblaze-creatine-monohydrate-creamp-100g-n-koshaveda-shilajit-pro-20g-combo&search=Shilajit+" target="_blank" class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                        <article class="product-card">
+                            <img src="{% static 'images/cratain11.webp' %}" alt="Shilajit Capsules">
+                            <div class="product-info">
+                                <h3>Shilajit Capsules</h3>
+                                <p class="price">₹1,649</p>
+                                <p class="description">Convenient daily dose for vitality and stamina</p>
+                                <a href="https://www.muscleblaze.com/pk/koshaveda-shilajit-pro-by-muscleblaze-20g-pack-of-2?navKey=PA-130607&itracker=w:related-products|;p:2|;c:Shilajit%20Supple|;e:3|;&ac_sel=koshaveda-shilajit-pro-by-muscleblaze-20g---pack-of-2&search=Shilajit+Supp" target="_blank"class="buy-now-btn">Buy Now</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
+<script src="{% static 'js/protin.js' %}"></script>
+
+</body>
+</html>

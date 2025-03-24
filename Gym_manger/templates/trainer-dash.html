@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/trainer.css' %}">
+    <style>
+        .modal{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+      <!-- Start Header  -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                 <a href="">Fitness <span>Hub</span></a>
+            </div>
+              <span></span>	
+              <span></span>
+
+            </a>
+         <!-- Navigation Menu -->
+         <nav class="nav-menu">
+            <ul>
+                <li><a href="{% url 'logout'%}" class="logout-btn">Logout</a></li>
+            </ul>
+        </nav>
+            </div>
+        </div>
+    </header>
+    <!-- End Header  -->
+    <div class="dashboard-container">
+        
+
+        <main class="dashboard-content">
+            <h1>Welcome, Trainer</h1>
+
+            <!-- User Profile Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>User Profile</h2>
+        <p><strong>Name:</strong> <span id="modalName"></span></p>
+        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Membership Plan:</strong> <span id="modalPlan"></span></p>
+        <p><strong>Number:</strong> <span id="modalNumber"></span></p>
+        <p><strong>Gender:</strong> <span id="modalGender"></span></p>
+        <p><strong>Height:</strong> <span id="modalWeight"></span></p>
+        <p><strong>Weight:</strong> <span id="modalHeight"></span></p>
+        <p><strong>Age:</strong> <span id="modalAge"></span></p>
+    </div>
+</div>
+
+<!-- Premium Users Table -->
+<section class="premium-users">
+    <h2>Premium User Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Membership Plan</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in premium_users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.plan }}</td>
+                <td>
+                    <button class="view-btn" onclick="openProfileModal('{{ user.name }}', '{{ user.email }}', '{{ user.plan }}', '{{ user.number }}', '{{ user.age }}', '{{ user.weight }}', '{{ user.height }}', '{{ user.gender }}')">
+                        View Profile
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No premium users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+
+           <!-- Messages Section -->
+<section class="messages">
+    <h2>Messages from Premium Users</h2>
+    {% for message in messages %}
+    <div class="message-box">
+        <p><strong>{{ message.user.name }}:</strong> {{ message.message }}</p>
+        <form action="{% url 'delete_message' message.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn">Delete</button>
+        </form>
+    </div>
+    {% empty %}
+    <p>No messages found.</p>
+    {% endfor %}
+</section>
+
+    </div>
+
+
+    <script>
+        function openProfileModal(name, email, plan,number,age,weight,height,gender) {
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('modalEmail').textContent = email;
+            document.getElementById('modalPlan').textContent = plan;
+            document.getElementById('modalNumber').textContent = number;
+            document.getElementById('modalAge').textContent = age;
+            document.getElementById('modalWeight').textContent = weight;
+            document.getElementById('modalHeight').textContent = height;
+            document.getElementById('modalGender').textContent = gender;
+            document.getElementById('profileModal').style.display = "flex";
+        }
+    
+        document.querySelector(".close").addEventListener("click", function() {
+            document.getElementById('profileModal').style.display = "none";
+        });
+    
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('profileModal')) {
+                document.getElementById('profileModal').style.display = "none";
+            }
+        };
+    </script>
+    
+    
+</body>
+</html>

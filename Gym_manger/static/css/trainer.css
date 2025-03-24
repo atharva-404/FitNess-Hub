@@ -1,0 +1,424 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    color: #e0e0e0;
+    overflow-x: hidden;
+}
+
+
+/* Ensure Dashboard container does not overflow */
+.dashboard-container {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Ensure content stays within the page */
+.dashboard-content {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+/* Sidebar */
+.sidebar {
+   
+    width: 260px;
+    min-width: 260px; /* Prevents shrinking */
+    background: linear-gradient(135deg, #b71c1c, #7f0000);
+    color: white;
+    padding: 20px;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+    width: 100%;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content */
+.dashboard-content {
+    flex: 1;
+    padding: 30px;
+    background: #1e1e1e;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 20px;
+    overflow: scroll;
+}
+
+.dashboard-content h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 51px;
+    color: #ff3d00;
+    font-weight: 600;
+}
+
+/* Premium Users Table */
+.premium-users table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #2c2c2c;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.premium-users th, .premium-users td {
+    border: 1px solid #444;
+    padding: 14px;
+    text-align: center;
+    color: #e0e0e0;
+}
+
+.premium-users th {
+    background: #b71c1c;
+    color: white;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.premium-users tr:nth-child(even) {
+    background: #1e1e1e;
+}
+
+.premium-users tr:hover {
+    background: rgba(183, 28, 28, 0.2);
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Messages */
+.messages {
+    margin-top: 30px;
+}
+
+.message-box {
+    background: #2c2c2c;
+    padding: 15px;
+    border-left: 5px solid #b71c1c;
+    margin-bottom: 10px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.message-box strong {
+    color: #ff3d00;
+    font-size: 16px;
+}
+
+/* Buttons */
+.view-btn, .reply-btn {
+    background: linear-gradient(45deg, #b71c1c, #ff3d00);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 8px rgba(255, 0, 0, 0.3);
+}
+
+.view-btn:hover, .reply-btn:hover {
+    background: linear-gradient(45deg, #ff3d00, #b71c1c);
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(255, 0, 0, 0.5);
+}
+
+/* Delete Button */
+.delete-btn {
+    background: linear-gradient(45deg, #ff1e1e, #b30000);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 8px rgba(255, 0, 0, 0.3);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(45deg, #b30000, #ff1e1e);
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(255, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .sidebar ul li {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .dashboard-content {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .premium-users table {
+        font-size: 14px;
+    }
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+    background: #2c2c2c;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff3d00;
+    transition: 0.3s ease-in-out;
+}
+
+.close:hover {
+    color: darkred;
+}
+
+
+
+
+
+
+/* Header */
+header {
+    
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+	padding: 11px;
+}
+
+header .logo a {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+header .logo a span {
+    color: #ff512f;
+}
+
+/* Navigation */
+header .nav {
+    position: fixed;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    width: 280px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 100px 0 15px;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+header .nav.open {
+    transform: translateX(0);
+}
+
+header .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header .nav ul li {
+    display: block;
+}
+
+header .nav ul li a {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    display: block;
+    padding: 12px 30px;
+    transition: 0.3s;
+}
+
+header .nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hamburger Menu */
+header .ham-burger {
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 60%;
+}
+
+header .ham-burger span {
+    height: 3px;
+    margin-bottom: 8px;
+    display: block;
+    background: #fff;
+    width: 30px;
+    transition: transform 0.5s ease;
+}
+
+header .ham-burger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(-6px);
+}
+
+header .ham-burger.active span:nth-child(2) {
+    transform: rotate(-45deg) translateY(6px);
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Header Styling */
+
+
+/* Flexbox for Header Layout */
+header .container {
+    display: flex;
+    justify-content: space-between; /* Pushes items apart */
+    align-items: center;
+}
+
+/* Logo */
+.logo a {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.logo a span {
+    color: #ff512f; /* Gym Accent Color */
+}
+
+/* Navigation Menu */
+.nav-menu {
+    margin-left: auto; /* Pushes menu to the right */
+}
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu ul li {
+    display: inline-block;
+}
+
+/* Logout Button */
+.logout-btn {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 3px 8px rgba(255, 81, 47, 0.3);
+    display: inline-block;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #dd2476, #ff512f);
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(255, 81, 47, 0.4);
+}

@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+
+    <title>Fitness Hub | AI Fitness Chatbot</title>
+    
+</head>
+<body>
+      <!-- Start Header  -->
+ <header>
+    <div class="container">
+        <div class="logo">
+             <a href="{% url 'home' %}">Fitness <span>Hub</span></a>
+             
+        </div>
+        <a href="javascript:history.back()" class="back-btn">
+            <img src="{% static 'images\back-button.png' %}" alt="Logo">
+        </a>
+    </div>
+</header>
+<!-- End Header  -->
+    <div class="chat-box">
+        <h2>AI Fitness Chatbot 💪</h2>
+        <div class="chat-messages" id="chat-messages"></div>
+        <input type="text" id="user-input" placeholder="Ask about workouts, diets...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+        
+            var chatBox = document.getElementById("chat-messages");
+        
+            // Append User Message
+            chatBox.innerHTML += `<div class="message user">${userInput}</div>`;
+        
+            // Show Thinking Animation
+            var thinkingMessage = document.createElement("div");
+            thinkingMessage.classList.add("thinking");
+            thinkingMessage.innerHTML = `<span></span><span></span><span></span>`;
+            chatBox.appendChild(thinkingMessage);
+        
+            // Scroll to Bottom
+            chatBox.scrollTop = chatBox.scrollHeight;
+        
+            // Send request to Django backend
+            fetch("{% url 'chat_response' %}", {
+                method: "POST",
+                headers: { "X-CSRFToken": "{{ csrf_token }}", "Content-Type": "application/x-www-form-urlencoded" },
+                body: `message=${userInput}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove Thinking Animation
+                chatBox.removeChild(thinkingMessage);
+        
+                // Append Bot Response
+                chatBox.innerHTML += `<div class="message bot">${data.response}</div>`;
+        
+                // Scroll to Bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        
+            // Clear Input Field
+            document.getElementById("user-input").value = "";
+        }
+        
+    </script>
+</body>
+</html>

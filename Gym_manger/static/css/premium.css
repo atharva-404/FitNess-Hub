@@ -1,0 +1,173 @@
+/* Global Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+    padding: 0px 20px;
+}
+
+h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.trainers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.trainer-card {
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    padding: 20px;
+    border-radius: 12px;
+    width: 280px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.trainer-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.trainer-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.trainer-card h3 {
+    margin: 10px 0;
+    font-size: 22px;
+    color: #ff512f;
+}
+
+.trainer-card p {
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+input[type="radio"] {
+    transform: scale(1.2);
+    margin-top: 10px;
+}
+
+button {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #dd2476, #ff512f);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .trainers {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Fitness Goal Section */
+.fitness-goal {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.fitness-goal h3 {
+    font-size: 28px;
+    color: #ff512f;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.goal-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.goal-card {
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 180px;
+}
+
+.goal-card:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+}
+
+.goal-card input {
+    display: none;
+}
+
+.goal-card label {
+    display: block;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.goal-card.active {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+}
+/* Header */
+header {
+    
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+	padding: 11px;
+}
+
+header .logo a {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+header .logo a span {
+    color: #ff512f;
+}

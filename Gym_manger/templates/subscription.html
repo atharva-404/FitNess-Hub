@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans</title>
+    <link rel="stylesheet" href="{% static 'css/sub.css' %}">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <!-- Start Header  -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                 <a href="">Fitness <span>Hub</span></a>
+            </div>
+              <span></span>	
+              <span></span>
+            </a>
+        
+            </div>
+        </div>
+    </header>
+    <!-- End Header  -->
+<section class="subscription">
+    <div class="container">
+        <h2>Choose Your Plan</h2>
+        <p>Find the perfect membership plan for your fitness journey.</p>
+        
+        <div class="plans">
+            <div class="plan">
+                <div class="plan-header">Basic Plan</div>
+                <div class="price">₹799/month</div>
+                <ul>
+                    <li>✔ Free WiFi</li>
+                    <li>✔ Access to gym </li>
+                    <li>✔ Locker room access</li>
+                </ul>
+                <button class="btn" onclick="startPayment('basic', 799)">Join Now</button>
+            </div>
+
+            <div class="plan">
+                <div class="plan-header">Standard Plan</div>
+                <div class="price">₹1,499/month</div>
+                <ul>
+                    <li>✔ Full gym access</li>
+                    <li>✔ Group fitness classes</li>
+                    <li>✔ No time restrictions</li>
+                </ul>
+                <button class="btn" onclick="startPayment('standard', 1499)">Join Now</button>
+            </div>
+
+            <div class="plan">
+                <div class="plan-header">Premium Plan</div>
+                <div class="price">₹2,999/month</div>
+                <ul>
+                    <li>✔ Unlimited access</li>
+                    <li>✔ Yoga & fitness classes</li>
+                    <li>✔ Personal trainer</li>
+                </ul>
+                <button class="btn" onclick="startPayment('premium', 2999)">Join Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function getCSRFToken() {
+        let cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            let [name, value] = cookie.trim().split('=');
+            if (name === 'csrftoken') return value;
+        }
+        return '';
+    }
+    
+    function startPayment(plan, amount) {
+        fetch('/process-payment/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+                name: "User",
+                email: "user@example.com",
+                phone: "9999999999",
+                plan: plan
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            var options = {
+                "key": data.key,
+                "amount": amount * 100,
+                "currency": "INR",
+                "name": "Gym Subscription",
+                "description": "Purchase Plan",
+                "order_id": data.order_id,
+                "handler": function (response) {
+                    fetch('/payment-success/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCSRFToken()
+                        },
+                        body: JSON.stringify({order_id: response.razorpay_order_id})
+                    }).then(res => res.json()).then(data => {
+                        if (data.success) {
+                        window.location.href = data.redirect_url;  // Redirect to home
+                        } else {
+                        alert(data.error);  // Show error message
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        });
+    }
+    </script>
+</body>
+</html>

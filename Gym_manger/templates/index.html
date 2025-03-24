@@ -1,0 +1,702 @@
+{%load static%}
+<html>
+<head>
+	<title>Fitness Hub</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{%static 'css/style.css' %}">
+  <style>
+    .wow:first-child {
+      visibility: hidden;
+
+    }
+	#loginModal{
+		display: none;
+	}
+	#registerModal{
+		display: none;
+	}
+  </style>
+  
+</head>
+<body>
+ 
+<!-- Start Header -->
+<header>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="#">Fitness <span>Hub</span></a>
+        </div>
+
+		<div class="auth-buttons">
+			<a href="#register" class="btn create-account" id="signup-btn">Sign-Up</a>
+			<a href="#" id="login-btn" class="btn login">Login</a>
+			<!-- Hamburger Menu (Mobile) -->
+			<a href="javascript:void(0)" class="ham-burger" onclick="toggleNav()">
+	
+				<span></span>    
+				<span></span>
+				<span></span>
+			</a>
+		</div>
+		        <!-- Auth Buttons -->
+
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#price">Price</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+
+    </div>
+</header>
+
+ <!-- End Header  -->
+
+   <!-- Login Modal -->
+   <div id="loginModal" class="modal_1">
+	<div class="modal-content_1">
+		<span class="close">&times;</span>
+		<h2>Login to Fitness Hub</h2>
+		<form method="POST" >
+			{% csrf_token %}
+				
+			<p>
+				<label for="id_username">Username:</label>
+				<input type="text" name="username" id="id_username" required>
+			</p>
+			
+			<p>
+				<label for="id_password">Password:</label>
+				<div class="password-wrapper">
+					<input type="password" name="password" id="id_password" required>
+					<span class="toggle-password" onclick="togglePassword()">👁️</span>
+				</div>
+			</p>
+		
+			<button  class="log-btn">Login</button>
+		</form>
+		
+	</div>
+</div>
+
+
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Register for Fitness Hub</h2>
+        <form id="register-form">
+            {% csrf_token %}
+
+            <label>Name:</label>
+            <input type="text" name="name" required><br>
+
+            <label>Phone Number:</label>
+            <input type="text" name="number" required><br>
+
+            <label>Email:</label>
+            <input type="email" name="email" id="email" required><br>
+
+            <button type="button" class="btn" id="generate-otp">Generate OTP</button><br>
+
+            <div id="otp-section" style="display: none;">
+                <label>Enter OTP:</label>
+                <input type="text" name="otp" id="otp" required>
+                <button type="button" class="btn" id="verify-otp">Verify OTP</button>
+            </div>
+
+            <div id="extra-fields" style="display: none;">
+                <label>Password:</label>
+                <input type="password" name="password" required><br>
+
+                <label>Height:</label>
+                <input type="text" name="height"><br>
+
+                <label>Weight:</label>
+                <input type="text" name="weight"><br>
+
+                <label>Age:</label>
+                <input type="text" name="age"><br>
+
+                <label>Gender:</label>
+                <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select><br>
+
+                <button type="submit" class="btn">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		// Get modal elements
+		const loginModal = document.getElementById("loginModal");
+		const registerModal = document.getElementById("registerModal");
+		
+		const loginBtn = document.getElementById("login-btn");
+		const signupBtn = document.getElementById("signup-btn");
+		
+		const closeBtns = document.querySelectorAll(".close");
+		
+		function openModal(modal) {
+			modal.style.display = "flex";
+		}
+		
+		function closeModal(modal) {
+			modal.style.display = "none";
+			history.replaceState(null, null, window.location.pathname);
+		}
+		
+		// Open login modal when clicking login button
+		if (loginBtn) {
+			loginBtn.addEventListener("click", function (event) {
+				event.preventDefault();
+				openModal(loginModal);
+			});
+		}
+		
+		// Open register modal when clicking signup button
+		if (signupBtn) {
+			signupBtn.addEventListener("click", function () {
+				openModal(registerModal);
+			});
+		}
+		
+		// Close modals when clicking close buttons
+		closeBtns.forEach(btn => {
+			btn.addEventListener("click", function () {
+				closeModal(loginModal);
+				closeModal(registerModal);
+			});
+		});
+		
+		// Close modals when clicking outside the content
+		window.addEventListener("click", function (event) {
+			if (event.target === loginModal) closeModal(loginModal);
+			if (event.target === registerModal) closeModal(registerModal);
+		});
+		
+		// Auto-open modals if URL contains hash
+		if (window.location.hash === "#login") openModal(loginModal);
+		if (window.location.hash === "#register") openModal(registerModal);
+	
+		// Handle login form submission
+		document.querySelector(".log-btn").addEventListener("click", function (event) {
+			event.preventDefault();
+			
+			let formData = new FormData();
+			formData.append("username", document.getElementById("id_username").value);
+			formData.append("password", document.getElementById("id_password").value);
+			
+			fetch("{% url 'login' %}", {
+				method: "POST",
+				body: formData,
+				headers: { "X-CSRFToken": "{{ csrf_token }}" }
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.status === "success") {
+					alert("Login Successful!");
+					window.location.href = data.redirect_url;
+				} else {
+					alert(data.message);
+				}
+			})
+			.catch(error => console.error("Error:", error));
+		});
+		
+		// Handle registration form submission
+		$("#register-form").submit(function(event) {
+			event.preventDefault();
+			
+			$.ajax({
+				type: "POST",  
+				url: "/register/",
+				data: $(this).serialize(),
+				success: function(response) {
+					if (response.success) {
+						alert(response.message);
+						closeModal(registerModal);
+						setTimeout(() => openModal(loginModal), 500);
+					} else {
+						alert(response.error);
+					}
+				},
+				error: function() {
+					alert("Error: Gym user with this Email already exists");
+				}
+			});
+		});
+		
+		// OTP Generation
+		$("#generate-otp").click(function() {
+			$(this).hide();
+			let email = $("#email").val();
+			if (email) {
+				$.post("/generate_otp/", { email: email, csrfmiddlewaretoken: "{{ csrf_token }}" }, function(response) {
+					alert(response.message);
+					$("#otp-section").show();
+				}).fail(function(xhr) {
+					alert("Error: " + xhr.responseText);
+				});
+			} else {
+				alert("Please enter email first.");
+			}
+		});
+		
+		// OTP Verification
+		$("#verify-otp").click(function() {
+			let otp = $("#otp").val();
+			let email = $("#email").val();
+			
+			$.post("/verify_otp/", { email: email, otp: otp, csrfmiddlewaretoken: "{{ csrf_token }}" }, function(response) {
+				if (response.success) {
+					alert("OTP Verified!");
+					$("#extra-fields").show();
+					$("#otp").prop("disabled", true);
+				} else {
+					alert(response.error);
+				}
+			}).fail(function(xhr) {
+				alert("Error: " + xhr.responseText);
+			});
+		});
+		
+		// Toggle password visibility
+		document.querySelector(".toggle-password").addEventListener("click", function () {
+			let passwordField = document.getElementById("id_password");
+			passwordField.type = passwordField.type === "password" ? "text" : "password";
+		});
+	});
+</script>
+  <!-- Start Home -->
+  <section class="home wow flash" id="home">
+  	 <div class="container">
+  	 	  <h1 class="wow slideInLeft" data-wow-delay="1s">It's <span>gym</span> time. Let's go</h1>
+  	 	  <h1 class="wow slideInRight" data-wow-delay="1s">We are ready to <span>fit you</span></h1>
+  	 </div>
+  	  <!-- go down -->
+  	      <a href="#about" class="go-down">
+  	      	  <i class="fa fa-angle-down" aria-hidden="true"></i>
+  	      </a>
+  	  <!-- go down -->
+
+  </section>
+  <!-- End Home -->
+
+
+ <!-- Start About -->
+  <section class="about" id="about">
+  	  <div class="container">
+  	  	  <div class="content">
+  	  	  	   <div class="box wow bounceInUp">
+  	  	  	   	   <div class="inner">
+  	  	  	   	   	   <div class="img">
+  	  	  	   	   	   	  <img src="{% static "images\about1.jpg" %}" alt="about" />
+  	  	  	   	   	   </div>
+                       <div class="text">
+                       	   <h4>Free Consultation</h4>
+                       	   <p>Start your fitness journey with a free consultation! Our trainers assess your fitness, set goals, and create a personalized plan—whether for weight loss, strength, or endurance. Take the first step toward a healthier you, at no cost!
+						</div>
+  	  	  	   	   </div>
+  	  	  	   </div>
+  	  	  	   	<div class="box wow bounceInUp" data-wow-delay="0.2s">
+  	  	  	   	   <div class="inner">
+  	  	  	   	   	   <div class="img">
+  	  	  	   	   	   	  <img src="{% static "images\about2.jpg" %}" alt="about" />
+  	  	  	   	   	   </div>
+                       <div class="text">
+                       	   <h4>Best Training</h4>
+                       	   <p>Kickstart your fitness journey with a free consultation! Our expert trainers assess your fitness, set goals, and craft a personalized plan—whether for weight loss, or endurance. Begin your transformation today, free of charge!
+						</div>
+  	  	  	   	   </div>
+  	  	  	   </div>
+  	  	  	   <div class="box wow bounceInUp" data-wow-delay="0.4s">
+  	  	  	   	   <div class="inner">
+  	  	  	   	   	   <div class="img">
+  	  	  	   	   	   	  <img src="{% static "images\about3.jpg" %}" alt="about" />
+  	  	  	   	   	   </div>
+                       <div class="text">
+                       	   <h4>Build Perfect Body</h4>
+                       	   <p>Achieve Your Best Shape
+							Sculpt your dream body with expert-led training and top facilities. Our balanced approach ensures sustainable results through guided workouts and a supportive community. Stay dedicated, stay fit!
+						</div>
+  	  	  	   	   </div>
+  	  	  	   </div>
+  	  	  </div>
+  	  </div>
+  </section>
+ <!-- End About -->
+
+
+ <!-- Start Service -->
+ <section class="service" id="service">
+ 	<div class="container">
+ 		 <div class="content">
+ 		 	  <div class="text box wow slideInLeft">
+                  <h2>Services</h2>
+                  <p>Unleash your true potential with Fitness Club's exceptional services, crafted to elevate your fitness journey. Our gym offers a dynamic environment where cutting-edge equipment meets personalized training solutions. From cardio to strength training, we cater to all fitness levels, ensuring every individual finds the perfect plan to achieve their goals. Whether you're looking to lose weight, build muscle, or simply stay active, we have everything you need to succeed.</p>
+                  <a href="{% url 'login' %}" class="btn">Start Now</a>
+ 		 	  </div>
+ 		 	  <div class="accordian box wow slideInRight">
+ 		 	  	    <div class="accordian-container active">
+ 		 	  	    	<div class="head">
+ 		 	  	    		<h4>Cardiovascular Equipment</h4>
+ 		 	  	    		<span class="fa fa-angle-down"></span>
+ 		 	  	    	</div>
+ 		 	  	    	<div class="body">
+							<p>At Fitness Hub, we pride ourselves on providing an inspiring space where motivation thrives. Our world-class trainers, modern amenities, and supportive community create an experience like no other. It's not just about working out; it's about embracing a lifestyle of health and confidence. Take the first step toward transformation today—because your fitness goals deserve nothing less than the best."</p>
+						</div>
+ 		 	  	    </div>
+ 		 	  	    <div class="accordian-container">
+ 		 	  	    	<div class="head">
+ 		 	  	    		<h4>Strength Training Equipment</h4>
+ 		 	  	    		<span class="fa fa-angle-up"></span>
+ 		 	  	    	</div>
+ 		 	  	    	<div class="body">
+							<p>"Build strength and sculpt your body with our modern strength training equipment. Explore a wide variety of free weights, resistance machines, and functional training tools for every fitness level and goal."</p>
+						</div>
+ 		 	  	    </div>
+ 		 	  	    <div class="accordian-container">
+ 		 	  	    	<div class="head">
+ 		 	  	    		<h4>Group Fitness Class</h4>
+ 		 	  	    		<span class="fa fa-angle-up"></span>
+ 		 	  	    	</div>
+ 		 	  	    	<div class="body">
+							<p>"Get inspired in our vibrant group fitness classes. Whether it’s yoga, Zumba, or high-intensity interval training, our sessions are led by expert instructors who’ll keep you energized and engaged every step of the way."</p>
+						</div>
+ 		 	  	    </div>
+ 		 	  	    <div class="accordian-container">
+ 		 	  	    	<div class="head">
+ 		 	  	    		<h4>Other Services</h4>
+ 		 	  	    		<span class="fa fa-angle-up"></span>
+ 		 	  	    	</div>
+ 		 	  	    	<div class="body">
+							<p>"Explore our additional offerings, including personalized training programs and wellness consultations. Whatever your fitness needs, we’re here to support you in achieving a healthier, stronger lifestyle."</p>
+						</div>
+ 		 	  	    </div>
+ 		 	  </div>
+ 		 </div>
+ 	</div>
+ </section>
+ <!-- End Service -->
+
+<!-- Start Classes -->
+<section class="classes" id="classes">
+	<div class="container">
+		 <div class="content">
+		 	  <div class="box img wow slideInLeft">
+		 	  	 <img src="{% static "images\class2.png" %}" alt="classes" />
+		 	  </div>
+		 	  <div class="box text wow slideInRight">
+		 	  	 <h2>Our Classes</h2>
+		 	  	 <p>At Fitness Club, we offer a variety of classes tailored to help you achieve your fitness goals. Whether you're looking to tone up, build strength, or improve flexibility, our experienced trainers are here to guide you every step of the way.</p>
+		 	  	<div class="class-items">
+		 	  	 <div class="item wow bounceInUp">
+                     <div class="item-img">
+						<img src="{% static "images\class1.jpg" %}" alt="classes" />
+
+                     </div>
+                     <div class="item-text">
+                     	  <h4>Stretching Training</h4>
+                     	  <p>Discover the benefits of enhanced flexibility and reduced muscle tension with our stretching classes. Perfect for all fitness levels, these sessions focus on improving mobility and preventing injuries.</p>
+                     	  <a href="{% url 'login' %}">Get Details</a>
+                     </div>
+		 	  	 </div>
+		 	  	 <div class="item wow bounceInUp">
+                     <div class="item-text">
+                     	  <h4>Strength Conditioning</h4>
+                     	  <p>Boost your endurance and build lean muscle with our strength conditioning program. This class combines weight training and functional exercises to help you gain power, tone muscles, and burn calories effectively.</p>
+                     	  <a href="{% url 'login' %}">Get Details</a>
+                     </div>
+                     <div class="item-img">
+                        <img src="{% static "images\gympic.jpeg" %}" alt="classes" />
+                        
+                     </div>
+		 	  	 </div>
+		 	  	</div>
+		 	  </div>
+		 </div>
+	</div>
+</section>
+<!-- End Classes -->
+
+<!-- Start Today -->
+ <section class="start-today">
+ 	<div class="container">
+ 		 <div class="content">
+ 		 	  <div class="box text wow slideInLeft">
+ 		 	  	 <h2>Start Your Training Today</h2>
+ 		 	  	 <p>Take the first step towards a healthier, stronger you. Join our fitness community and access personalized training programs, state-of-the-art equipment, and expert guidance to help you reach your goals. Let's get started—your transformation begins now!</p>
+ 		 	  	 <a href="{% url 'login' %}" class="btn">Start Now</a>
+ 		 	  </div>
+ 		 	  <div class="box img wow slideInRight">
+ 		 	  	 <img src="{% static "images\gallery4.jpg" %}" alt="start today" />
+ 		 	  </div>
+
+ 		 </div>
+ 	</div>
+ </section>
+<!-- End Start Today -->
+
+<!-- Start Schedule -->
+  <section class="schedule" id="schedule">
+  	 <div class="container">
+  	 	  <div class="content">
+  	 	  	   <div class="box text wow slideInLeft timing  ">
+  	 	  	   	   <h2>Classes Schedule</h2>
+  	 	  	   	   <p>
+					Join us for a variety of fitness classes designed to help you stay motivated and achieve your goals. Check out our weekly schedule below and find the perfect session for your needs.</p>
+  	 	  	   	   </p>
+						   <table class="table">
+							<tbody>
+								<tr>
+									<td class="day">Monday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>HIIT Workout <br/> 9:00 to 10:00 AM</td>
+									<td>Room No:210,2nd floor</td>
+								</tr>
+								<tr>
+									<td class="day">Tuesday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>Strenght Training <br/> 9:00 to 10:00 AM</td>
+									<td>Room No:105, 1st Floor</td>
+								</tr>
+								<tr>
+									<td class="day">Wednesday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>Cardio Blast<br/> 9:00 to 10:00 AM</td>
+									<td>Room No:315,3rd Floor</td>
+								</tr>
+								<tr>
+									<td class="day">Thursday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>Functional Fitness<br/> 9:00 to 10:00 AM</td>
+									<td>Room No:220,2nd Floor</td>
+								</tr>
+								<tr>
+									<td class="day">Friday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>Yoga & Stretching <br/> 9:00 to 10:00 AM</td>
+									<td>Room No:108,!st Floor</td>
+								</tr>
+								<tr>
+									<td class="day">Saturday</td>
+									<td><strong>9:00 AM</strong></td>
+									<td>Bootcamp <br/> 9:00 to 10:00 AM</td>
+									<td>Room No:305,3rd Floor</td>
+								</tr>
+							</tbody>
+					   </table>
+				</div>
+				<div class="box ">
+					<img src="{% static "images\schedule1.png" %}" alt="schedule" />
+
+				</div>
+		 </div>
+   </div>
+</section><!-- End Schedule -->
+
+<!-- Start Gallery -->
+  <section class="gallery" id="gallery">
+  	 <h2>Workout Gallery</h2>
+  	<div class="content">
+  		 <div class="box wow slideInLeft">
+  		 	 <img src="{% static "images\gallery1.jpg" %}" alt="gallery" />
+  		 </div>
+  		 <div class="box wow slideInRight">
+            <img src="{% static "images\gallery2.jpg" %}" alt="gallery" />
+        </div>
+  		 <div class="box wow slideInLeft">
+            <img src="{% static "images\gallery3.jpg" %}" alt="gallery" />
+        </div>
+  		 <div class="box wow slideInRight">
+            <img src="{% static "images\gallery4.jpg" %}" alt="gallery" />
+        </div>
+  	</div>
+  </section>
+<!-- End Gallery -->
+
+ <!-- Start Price -->
+  <section class="price-package" id="price">
+  	 <div class="container">
+  	 	  <h2>Choose Your Package</h2>
+  	 	  <p class="title-p">Find the perfect membership plan that suits your fitness goals and lifestyle. From basic access to premium facilities, we offer packages tailored to every need. Start your fitness journey with us today!</p>
+  	 	  <div class="content">
+  	 	  	  <div class="box wow bounceInUp">
+  	 	  	  	  <div class="inner">
+  	 	  	  	  	   <div class="price-tag">
+						₹799/month
+  	 	  	  	  	   </div>
+  	 	  	  	  	   <div class="img">
+  	 	  	  	  	   	 <img src="{% static "images\price1.jpg" %}" alt="price" />
+  	 	  	  	  	   </div>
+								<div class="text">
+									<h3>Basic Package</h3>
+									<p>Free WI-FI</p>
+									<p>Month-to-month membership</p>
+									<p>Access to gym and cardio areas (non-peak hours)</p>
+									<p>Service locker rooms</p>
+									<a href="{% url 'login' %}" class="btn">Join Now</a>
+							  </div>
+  	 	  	  	  </div>
+  	 	  	  </div>
+  	 	  	  <div class="box wow bounceInUp" data-wow-delay="0.2s">
+  	 	  	  	  <div class="inner">
+  	 	  	  	  	   <div class="price-tag">
+						₹1,499/month
+  	 	  	  	  	   </div>
+  	 	  	  	  	   <div class="img">
+                        <img src="{% static "images\price2.jpg" %}" alt="price" />
+                    </div>
+					<div class="text">
+						<h3>Standard Package</h3>
+						<p>Free WiFi</p>
+						<p>Month-to-month membership</p>
+						<p>No time restrictions for access</p>
+						<p>Gym, cardio, and group fitness classes</p>
+						<p>Service locker rooms</p>
+						<a href="{% url 'login' %}" class="btn">Join Now</a>
+				  </div>
+  	 	  	  	  </div>
+  	 	  	  </div>
+  	 	  	  <div class="box wow bounceInUp" data-wow-delay="0.4s">
+  	 	  	  	  <div class="inner">
+  	 	  	  	  	   <div class="price-tag">
+						₹2,999/month
+  	 	  	  	  	   </div>
+  	 	  	  	  	   <div class="img">
+                        <img src="{% static "images\price3.jpg" %}" alt="price" />
+                    </div>
+					<div class="text">
+						<h3>Premium Package</h3>
+						<p>Free WiFi</p>
+						<p>No Time Restrictions</p>
+						<p>Gym, cardio, group fitness classes, and yoga</p>
+						<p>Service locker rooms with premium amenities</p>
+						<p>Personal trainer access (2 sessions per month)</p>
+						<a href="{% url 'login' %}" class="btn">Join Now</a>
+				  </div>
+  	 	  	  	  </div>
+  	 	  	  </div>
+  	 	  </div>
+  	 </div>
+  </section>
+ <!-- End Price -->
+
+<!-- Start Contact -->
+<section class="contact" id="contact">
+	<div class="container">
+	   <div class="content">
+		   <div class="box form wow slideInLeft">
+			  <form>
+				 <input type="text" placeholder="Enter Name">
+				 <input type="text" placeholder="Enter Email">
+				 <input type="text" placeholder="Enter Mobile">
+				 <textarea placeholder="Enter Message"></textarea>
+				 <a type="submit"class="button" type="btn" href='{% url 'login' %}'>Send Message</a>
+			  </form>
+		   </div>
+		   <div class="box text wow slideInRight">
+				<h2>Get Connected with Gym</h2>
+				 <p class="title-p">Reach out to us for any inquiries or fitness guidance. We're here to help you achieve your goals!</p>
+				 <div class="info">
+					 <ul>
+						 <li><span class="fa fa-map-marker"></span> Gali no 11, House no 11, Jalgoan</li>
+						 <li><span class="fa fa-phone"></span>9823767772</li>
+						 <li><span class="fa fa-envelope"></span>fithubgym404@gym.com</li>
+					 </ul>
+				 </div>
+				 <div class="social">
+					  <a href=""><span class="fa fa-facebook"></span></a>
+					  <a href=""><span class="fa fa-linkedin"></span></a>
+					  <a href=""><span class="fa fa-skype"></span></a>
+					  <a href=""><span class="fa fa-youtube-play"></span></a>
+				 </div>
+
+				 <div class="footer-bottom">
+					<p>&copy; 2025 Fitness Hub Gym | All Rights Reserved</p>
+				</div>
+		   </div>
+	   </div>
+	</div>
+ </section>
+<!-- End Contact -->
+
+
+
+ <!-- jquery -->
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+
+      $(".ham-burger, .nav ul li a").click(function(){
+       
+        $(".nav").toggleClass("open")
+
+        $(".ham-burger").toggleClass("active");
+      })      
+      $(".accordian-container").click(function(){
+      	$(".accordian-container").children(".body").slideUp();
+      	$(".accordian-container").removeClass("active")
+      	$(".accordian-container").children(".head").children("span").removeClass("fa-angle-down").addClass("fa-angle-up")
+      	$(this).children(".body").slideDown();
+      	$(this).addClass("active")
+      	$(this).children(".head").children("span").removeClass("fa-angle-up").addClass("fa-angle-down")
+      })
+
+       $(".nav ul li a, .go-down").click(function(event){
+         if(this.hash !== ""){
+
+              event.preventDefault();
+
+              var hash=this.hash; 
+
+              $('html,body').animate({
+                scrollTop:$(hash).offset().top
+              },800 , function(){
+                 window.location.hash=hash;
+              });
+
+              // add active class in navigation
+              $(".nav ul li a").removeClass("active")
+              $(this).addClass("active")
+         }
+      })
+})
+
+</script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script>
+    wow = new WOW(
+      {
+        animateClass: 'animated',
+        offset:       0,
+      }
+    );
+    wow.init();
+  </script>
+</body>
+</html>
+
+
+
+
+
+

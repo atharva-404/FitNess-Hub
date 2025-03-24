@@ -1,0 +1,563 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+      </style>
+</head>
+<body>
+
+<!-- Start Header -->
+<header>
+    <div class="container">
+        <div class="logo">
+            <a href="">Fitness <span>Hub</span></a>
+        </div>
+        <div class="ham-burger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav" id="nav">
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="{% url 'profile' %}">My Profile</a></li>
+                <li><a href="#live-classes">Live Classes</a></li>
+                <li><a href="#workout-videos">Workout video</a></li>
+                <li><a href="#ai-trainer">AI Trainer</a></li>
+                <li><a href="#purchase-creatine">Supplements Store</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- Start Home -->
+ <br>
+<section class="home wow flash" id="home">
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="slide-in-left" data-wow-delay="1s">Welcome <span> to </span> Fit Hub </h1>
+        <h2 class="slide-in-right" data-wow-delay="1s">We are ready to <span>fit you</span></h2>
+        <p>Your journey to a healthier lifestyle starts here! We offer a variety of <br>services to help you achieve your fitness goals.</p>
+        <br>
+            <br>
+            <br>
+            <br>
+        <h3>Our Services:</h3>
+        <ul>
+            <li>Personal Training</li>
+            <li>Group Classes</li>
+            <li>Nutrition Counseling</li>
+            <li>Online Coaching</li>
+            <br>
+            <br>    
+        </ul>
+    </div>
+    <!-- Go Down -->
+    <a href="#live-classes" class="go-down">
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
+    </a>
+    <!-- Go Down -->
+
+</section>
+<!-- End Home Section -->
+
+
+{% comment %} Our Achievements {% endcomment %}
+<section class="gym-stats">
+    <div class="container">
+        <h2>Our Achievements</h2>
+        <div class="stats">
+            <div class="stat">
+                <h3><span class="counter" data-count="5000">0</span>+</h3>
+                <p>Active Members</p>
+            </div>
+            <div class="stat">
+                <h3><span class="counter" data-count="20">0</span>+</h3>
+                <p>Expert Trainers</p>
+            </div>
+            <div class="stat">
+                <h3><span class="counter" data-count="1000">0</span>+</h3>
+                <p>Workout Sessions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% comment %} Schedule {% endcomment %}
+<section class="schedule">
+    <div class="container">
+        <h2>Our Weekly Workout Schedule</h2>
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Workout</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td>Monday</td>
+                <td>CHEST and TRICEP Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+            <tr>
+                <td>Tuesday</td>
+                <td>BACK and BICEP Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+            <tr>
+                <td>Wednesday</td>
+                <td>LEG and SHOULDER Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+            <tr>
+                <td>Thursday</td>
+                <td>CHEST and TRICEP Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+            <tr>
+                <td>Friday</td>
+                <td>BACK and BICEP Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+            <tr>
+                <td>Saturday</td>
+                <td>LEG and SHOULDER Workout</td>
+                <td>6:00 AM - 7:00 AM</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+
+<section class="ai-trainer" id="ai-trainer">
+    <div class="container">
+        <h2 class="fade-in">Your Personal AI Trainer</h2>
+
+        <div class="trainer-content">
+            <!-- AI Trainer Image -->
+            <div class="trainer-image">
+                <img src="{% static 'images/ai (1).webp' %}" alt="AI Trainer">
+            </div>
+
+            <!-- Trainer Text Content -->
+            <div class="trainer-info">
+                <h3>Train Smarter with AI</h3>
+                <p>
+                    Experience the power of AI-driven fitness coaching! Get personalized workout plans, track progress, and receive expert nutrition guidance – all in one place.
+                </p>
+                
+                <h4>⚡ Key Features</h4>
+                <ul>
+                    <li>✅ AI-Powered Workout & Meal Plans</li>
+                    <li>✅ Real-Time Feedback & Progress Tracking</li>
+                    <li>✅ 24/7 Virtual Fitness Coach</li>
+                    <li>✅ Connect with Expert Trainers</li>
+                </ul>
+
+                <h4>💪 Why Choose Us?</h4>
+                <p>
+                    Unlike traditional trainers, our AI adapts to your progress in real-time, ensuring maximum efficiency and results. Whether you're looking to gain muscle, lose weight, or improve endurance – we've got you covered!
+                </p>
+
+                <div class="buttons">
+                    <button class="btn chatbot" onclick="window.location.href='{% url 'chatbot' %}'">Chat with AI</button>
+                    <button class="btn trainer" onclick="window.location.href='http://127.0.0.1:8080/trainer/ai-trainer/'">Start Training</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Include Swiper.js CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Start Live Workout Classes Section -->
+<section class="live-classes" id="live-classes">
+    <div class="container">
+        <h2 class="fade-in">Join Our Live Workout Classes</h2>
+
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide class">
+                    <div class="class-overlay">
+                        <img src="{% static 'images/yoga2.jpg' %}" alt="Yoga Class">
+                        <div class="overlay-content">
+                            <h3>Yoga Class</h3>
+                            <p>Every Monday at 6 PM</p>
+                            <button class="btn" onclick="window.open('https://meet.google.com/orh-ogww-eep', '_blank')">Join Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide class">
+                    <div class="class-overlay">
+                        <img src="{% static 'images/HIIT Class.jpg' %}" alt="HIIT Class">
+                        <div class="overlay-content">
+                            <h3>HIIT Class</h3>
+                            <p>Every Wednesday at 7 PM</p>
+                            <button class="btn" onclick="window.open('https://meet.google.com/orh-ogww-eep', '_blank')">Join Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide class">
+                    <div class="class-overlay">
+                        <img src="{% static 'images/strength training2.jpg' %}" alt="Strength Training">
+                        <div class="overlay-content">
+                            <h3>Strength Training</h3>
+                            <p>Every Friday at 5 PM</p>
+                            <button class="btn" onclick="window.open('https://meet.google.com/orh-ogww-eep', '_blank')">Join Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swiper Pagination & Navigation -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</section>
+<!-- End Live Workout Classes Section -->
+
+<!-- Swiper JS Initialization -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            768: { slidesPerView: 1 },
+            1024: { slidesPerView: 1 }
+        }
+    });
+</script>
+
+<!-- Start Workout Video Library Section -->
+<section class="workout-videos" id="workout-videos">
+    <div class="container">
+        <h2 class="fade-in">Explore Our Workout Video Library</h2>
+        
+        <div class="video-grid">
+            <div class="video-card slide-up">
+                <img src="{% static 'images/cardio.png' %}" alt="Strength Training">
+                <h3>Cardio Blast</h3>
+                <p>Boost endurance and burn calories with our high-energy cardio workouts.</p>
+               
+                <button class="btn" onclick="window.location.href='{% url 'workout_videos' %}'">Watch Full Video</button>
+            </div>
+            <br>
+            <div class="video-card slide-up">
+                <img src="{% static 'images/Strength Training.jpg' %}" alt="Strength Training">
+                <h3>Strength Training</h3>
+                <p>Build muscle and increase strength with targeted exercises.</p>
+               
+                <button class="btn" onclick="window.location.href='{% url 'workout_videos' %}'">Watch Full Video</button>
+            </div>
+            <br>
+            <div class="video-card slide-up">
+                <img src="{% static 'images/yoga.jpg' %}" alt="Strength Training">
+                <h3>Yoga Session</h3>
+                <p>Improve flexibility and find inner peace with our guided yoga sessions.</p>
+               
+                <button class="btn" onclick="window.location.href='{% url 'workout_videos' %}'">Watch Full Video</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const section = document.querySelector(".workout-videos");
+    const videoCards = document.querySelectorAll(".video-card");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                section.classList.add("show");
+                videoCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add("show");
+                    }, index * 200); // Delay each card for a smooth effect
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(section);
+});
+</script>
+<!-- End Workout Video Library Section -->
+
+<br>
+<br>
+
+<!-- Include Swiper.js CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Start Purchase Creatine Section -->
+<section class="purchase-creatine" id="purchase-creatine">
+    <div class="container">
+        <h2 class="fade-in">Supplements Store</h2>
+
+        <!-- Product Cards Wrapper -->
+        <div class="product-wrapper">
+            <!-- Product 1 -->
+            <div class="product">
+                <img src="{% static 'images/creatin.webp' %}" alt="Creatine Monohydrate">
+                <div class="product-info">
+                    <h3>Creatine Monohydrate</h3>
+                    <p class="price">₹949</p>
+                    <button class="btn" onclick="window.location.href='{% url 'protin' %}'">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product">
+                <img src="{% static 'images/creatin2.webp' %}" alt="Creatine Monohydrate">
+                <div class="product-info">
+                    <h3>Creatine HCL</h3>
+                    <p class="price">₹599</p>
+                    <button class="btn" onclick="window.location.href='{% url 'protin' %}'">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product">
+                <img src="{% static 'images/cratain3.png' %}" alt="Creatine Monohydrate">
+                <div class="product-info">
+                    <h3>Creatine Ethyl Ester</h3>
+                    <p class="price">₹5399</p>
+                    <button class="btn" onclick="window.location.href='{% url 'protin' %}'">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Purchase Creatine Section -->
+
+
+
+{% comment %} calculateBMI  {% endcomment %}
+<section class="bmi-calculator">
+    <div class="container">
+        <h2 class="fade-in">Calculate Your BMI</h2>
+        <div class="bmi-center">
+        <input type="number" id="weight" placeholder="Enter weight (kg)">
+        <input type="number" id="height" placeholder="Enter height (feet)">
+        <button onclick="calculateBMI()">Calculate</button>
+
+        </div>
+        <p id="bmi-result"></p>
+    </div>
+</section>
+
+<!-- Floating Button -->
+<button class="floating-btn" id="openMessageForm">💬 Message Trainer</button>
+
+<!-- Message Section -->
+<section class="send-message" id="messagePopup">
+    <div class="message-header">
+        <h2>Send a Message</h2>
+        <button class="close-btn" id="closeMessageForm">✖</button>
+    </div>
+    <form id="messageForm">
+        {% csrf_token %}
+        <label for="trainer">Select Trainer:</label>
+        <select name="trainer_id" id="trainer" required>
+            {% for trainer in trainers %}
+            <option value="{{ trainer.id }}">{{ trainer.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="message">Your Message:</label>
+        <input type="text" id="message" name="message" required>
+
+        <button type="submit" class="send-btn">Send</button>
+    </form>
+</section>
+
+<script>
+document.getElementById("openMessageForm").addEventListener("click", function() {
+    document.getElementById("messagePopup").style.display = "block";
+});
+
+document.getElementById("closeMessageForm").addEventListener("click", function() {
+    document.getElementById("messagePopup").style.display = "none";
+});
+</script>
+
+
+
+ <!-- Start Contact -->
+ <section class="contact" id="contact">
+    <div class="container">
+       <div class="content">
+           <div class="box form wow slideInLeft">
+            <form method="POST"  id="contactForm">
+				{% csrf_token %}
+
+                  <input type="text" name="name" required placeholder="Enter Name">
+                  <input type="Email" name="email"  required placeholder="Enter Email">
+                  <input type="text" name="mobno" required placeholder="Enter Mobile">
+                  <textarea placeholder="Enter Message" required name="msg"></textarea>
+                  <button type="submit">Send Message</button>
+               </form>               
+           </div>
+           
+           <div class="box text wow slideInRight">
+                <h2>Get Connected with Gym</h2>
+                 <p class="title-p">Reach out to us for any inquiries or fitness guidance. We're here to help you achieve your goals!</p>
+                 <div class="info">
+                     <ul>
+                         <li><span class="fa fa-map-marker"></span> Gali no 11, House no 11, Jalgoan</li>
+                         <li><span class="fa fa-phone"></span> 9823767772</li>
+                         <li><span class="fa fa-envelope"></span> fithubgym404@gym.com</li>
+                     </ul>
+                 </div>
+                 <div class="social">
+                      <a href=""><span class="fa fa-facebook"></span></a>
+                      <a href=""><span class="fa fa-linkedin"></span></a>
+                      <a href=""><span class="fa fa-skype"></span></a>
+                      <a href=""><span class="fa fa-youtube-play"></span></a>
+                 </div>         
+           </div>
+       </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Fitness Hub Gym | All Rights Reserved</p>
+    </div>
+ </section>
+<!-- End Contact -->
+
+
+
+<script src="{% static 'js/home.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("#messageForm");
+    
+        form.addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent default form submission
+    
+            const formData = new FormData(form);
+    
+            fetch("{% url 'send_message' %}", {
+                method: "POST",
+                body: formData,
+                
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Show response message
+                if (data.success) {
+                    form.reset(); // Clear the form after successful submission
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    });
+    </script>
+    
+<script>
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        let form = document.getElementById("contactForm");
+        let submitButton = form.querySelector("button[type='submit']");
+    
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+    
+            let formData = new FormData(form);
+    
+            // Hide the button after clicking
+            submitButton.style.display = "none";
+    
+            fetch(window.location.href, {  // Send request to the same page
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": getCSRFToken(), // Include CSRF token
+                }
+            })
+            .then(response => response.json())  // Parse JSON response
+            .then(data => {
+                alert(data.message);
+                submitButton.style.display = "block"; // Show button again if there's an 
+                // Show success/error message
+                if (data.status == "success") {
+                    form.reset();  // Reset form on success
+                }
+                else
+                {
+                    form.reset();  // Reset form on success
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("❌ Something went wrong. Please try again.");
+                submitButton.style.display = "block"; // Show button again if there's an error
+            });
+        });
+    });
+    
+    // Function to get CSRF token from cookies
+    function getCSRFToken() {
+        let cookieValue = null;
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.startsWith("csrftoken=")) {
+                cookieValue = cookie.substring("csrftoken=".length);
+                break;
+            }
+        }
+        return cookieValue;
+    }
+    
+</script>

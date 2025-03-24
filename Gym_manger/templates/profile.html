@@ -1,0 +1,584 @@
+{%load static%}
+<style>
+    
+    /* === Global Styles === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* === Header Styling === */
+header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    padding: 25px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Logo Styling */
+.logo a {
+    font-size: 34px;  /* Increased Font Size */
+    text-decoration: none;
+    color: #ff9800;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logo a span {
+    color: #e68900;
+}
+
+.logo a:hover {
+    color: #e68900;
+    transform: scale(1.05);
+}
+
+/* Back Button */
+.back-btn img {
+    width: 50px;
+    height: 50px;
+    transition: 0.3s;
+}
+
+.back-btn:hover img {
+    transform: scale(1.1);
+}
+
+/* Ensure full-height layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Full-screen fit */
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    background: #0f0c29; /* Match your design */
+}
+
+/* Profile card adjustment */
+.card {
+    width: 90%;  /* Utilize more space on mobile */
+    max-width: 500px; /* Limit width on larger screens */
+    padding: 40px 30px;  /* More padding for content spacing */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    background: #1c1c1c;
+    color: #fff;
+}
+
+/* Font size adjustments */
+h2 {
+    font-size: 26px; 
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px; 
+    line-height: 1.8;
+}
+
+/* Button Styling */
+.btn {
+    font-size: 18px;
+    padding: 12px 24px;
+    width: 100%;
+    background: #ff8c00;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #e07b00;
+    transform: translateY(-3px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .card {
+        width: 95%;  /* Use more width on smaller screens */
+        padding: 30px 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+/* === Content Section === */
+.content {
+    max-width: 95%;
+    margin: 50px auto;
+    padding: 35px;
+    background: #1c1c1c;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover Effects */
+.content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9);
+}
+
+/* === Profile Card Styling === */
+.card {
+    background: #222;
+    padding: 35px;  /* Increased Padding */
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    transition: 0.3s;
+}
+
+/* Card Title */
+.card h2 {
+    font-size: 36px;  /* Larger Font */
+    color: #ff9800;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Profile Details */
+.card p {
+    font-size: 22px;  /* Larger Font */
+    line-height: 1.8;
+    color: #ddd;
+    margin: 15px 0;
+}
+
+.card strong {
+    color: #ff9800;
+}
+
+/* === Buttons Styling === */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 18px 25px;  /* Larger Padding */
+    font-size: 22px;  /* Larger Font */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background: #ff9800;
+    border: none;
+    border-radius: 12px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #e68900;
+    transform: translateY(-2px);
+}
+
+/* === Modal Styling === */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s;
+}
+
+/* Modal Content */
+.modal-content {
+    background: #1c1c1c;
+    color: white;
+    padding: 40px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9);
+    animation: slideIn 0.5s;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ff9800;
+    border-radius: 12px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #e68900;
+}
+
+/* Close Button */
+.close {
+    color: #ff9800;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;  /* Larger Close Icon */
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close:hover {
+    color: #e68900;
+    transform: scale(1.2);
+}
+
+/* === Form Styling === */
+.form-label {
+    font-size: 22px;  /* Larger Labels */
+    font-weight: bold;
+    color: #ff9800;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;  /* Larger Font */
+    margin-bottom: 20px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background: #222;
+    color: white;
+    transition: 0.3s;
+}
+
+/* Form Field Focus Effect */
+.form-control:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+}
+
+/* Password Field Eye Button */
+.input-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-group input {
+    flex: 1;
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+}
+
+.input-group button {
+    border-radius: 0 12px 12px 0;
+    background: #444;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 15px 18px;
+    padding: 12px;
+    max-width: 50px;
+    background: transparent;    
+    position: relative;
+    top:-10px
+}
+
+.input-group button:hover {
+    background: #ff9800;
+    color: #fff;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* === Mobile Full-Screen Optimization === */
+@media (max-width: 992px) {
+    .content {
+        padding: 25px;
+        margin: 30px auto;
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .btn {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    .form-control {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 35px;
+    }
+
+    .input-group button {
+        padding: 12px;
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 600px) {
+    .content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .modal-content {
+        width: 100%;
+        padding: 25px;
+        max-height: 95vh;  /* Full-screen fit */
+    }
+
+    .btn {
+        font-size: 18px;
+        padding: 12px 18px;
+    }
+
+    .form-control {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .card h2 {
+        font-size: 28px;
+    }
+
+    .card p {
+        font-size: 18px;
+    }
+
+    .modal-content::-webkit-scrollbar {
+        width: 7px;
+    }
+}
+
+</style>
+
+<header>
+    <div class="container">
+        <div class="logo">
+             <a href="{% url 'home'%}">Fitness <span>Hub</span></a>
+             
+             
+             
+             
+            </div>
+            <a href="javascript:history.back()" class="back-btn">
+                <img src="{% static 'images\back-button.png' %}" alt="Logo">
+            </a>
+    </div>
+</header>
+<!-- Modal Popup -->
+<div id="edit-modal" class="modal">
+    <div class="modal-content p-4">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2 class="text-center mb-3">Edit Profile</h2>
+
+        <form method="post" onsubmit="return confirmSubmission()">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" value="{{ user.name }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" name="number" value="{{ user.number }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" value="{{ user.email }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-control" name="age" value="{{ user.age }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Weight (kg)</label>
+                <input type="number" class="form-control" name="weight" value="{{ user.weight }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Height (cm)</label>
+                <input type="number" class="form-control" name="height" value="{{ user.height }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <select class="form-control" name="gender">
+                    <option value="Male" {% if user.gender == "Male" %} selected {% endif %}>Male</option>
+                    <option value="Female" {% if user.gender == "Female" %} selected {% endif %}>Female</option>
+                    <option value="Other" {% if user.gender == "Other" %} selected {% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fitness Goal</label>
+                <input type="text" class="form-control" name="goal" value="{{ user.goal }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Current Plan</label>
+                <input type="text" class="form-control" name="plan" value="{{ user.plan }}" readonly>
+                <p>
+                    <button type="button" class="btn btn-warning btn-sm ms-2" onclick="upgradePlan()">Upgrade Plan</button>
+                </p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Assigned Trainer</label>
+                <select class="form-control" name="trainer">
+                    <option value="">No Trainer</option>
+                    {% for trainer in trainers %}
+                        <option value="{{ trainer.id }}" {% if user.trainer == trainer %} selected {% endif %}>
+                            {{ trainer.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Password Fields with Eye Button -->
+            <div class="mb-3 position-relative">
+                <label class="form-label">Current Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="current_password" id="current_password" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('current_password')">👁️</button>
+                </div>
+            </div>
+            <div class="mb-3 position-relative">
+                <label class="form-label">New Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="new_password" id="new_password" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('new_password')">👁️</button>
+                </div>
+            </div>
+            <div class="mb-3 position-relative">
+                <label class="form-label">Confirm New Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('confirm_password')">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<div class="content mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4">User Profile</h2>
+
+        <!-- Profile Display Mode -->
+        <div id="profile-view">
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Phone Number:</strong> {{ user.number }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Age:</strong> {{ user.age }}</p>
+            <p><strong>Weight:</strong> {{ user.weight }} kg</p>
+            <p><strong>Height:</strong> {{ user.height }} cm</p>
+            <p><strong>Gender:</strong> {{ user.gender }}</p>
+            <p><strong>Fitness Goal:</strong> {{ user.goal }}</p>
+            <p>
+                <strong>Current Plan:</strong> {{ user.plan }}
+            </p>
+            <p>
+                <strong>Assigned Trainer:</strong> 
+                {% if user.trainer %}
+                    {{ user.trainer.name }}
+                {% else %}
+                    No Trainer
+                {% endif %}
+            </p>
+            
+            <button class="btn btn-primary w-100 mt-3" onclick="openEditModal()">Edit Info</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        field.type = field.type === "password" ? "text" : "password";
+    }
+    
+    function openEditModal() {
+        document.getElementById("edit-modal").style.display = "flex";
+    }
+
+    function closeEditModal() {
+        document.getElementById("edit-modal").style.display = "none";
+    }
+
+    function confirmSubmission() {
+        return confirm("Are you sure you want to save the changes?");
+    }
+
+    function upgradePlan() {
+        window.location.href = "/subscription";
+    }
+    function openEditModal() {
+        document.getElementById("edit-modal").style.display = "flex";
+    }
+    
+    function closeEditModal() {
+        document.getElementById("edit-modal").style.display = "none";
+    }
+    
+    // Close modal if user clicks outside the modal-content
+    window.onclick = function(event) {
+        let modal = document.getElementById("edit-modal");
+        if (event.target === modal) {
+            closeEditModal();
+        }
+    }
+    
+</script>

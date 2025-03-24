@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trainer - Biceps Curl Counter</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 36px;
+            color: #ffcc00;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            text-transform: uppercase;
+        }
+
+        /* Counters */
+        .counter-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0px 0;
+        }
+
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 120px;
+        }
+
+        #right-counter {
+            background: rgba(255, 87, 34, 0.2);
+            color: #ff5722;
+        }
+
+        #left-counter {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        /* Video Container */
+        #video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Video Feed */
+        #video-feed {
+            width: 640px;
+            height: 480px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 204, 0, 0.5);
+            display: none;
+            transition: transform 0.3s ease;
+        }
+
+        #video-feed:hover {
+            transform: scale(1.02);
+        }
+
+        /* Button Container */
+        .button-container {
+            margin-top: 0px;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, #ff5722, #ff9800);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #e64a19, #ff5722);
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #video-feed {
+                width: 100%;
+                height: auto;
+            }
+
+            .btn {
+                width: 90%;
+            }
+
+            .counter-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            padding: 11px;
+        }
+
+        header .logo a {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        header .logo a span {
+            color: #ff512f;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- Start Header  -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'home' %}">Fitness <span>Hub</span></a>
+                
+        
+            </div>
+        </div>
+    </header>
+    <!-- End Header  -->
+
+    <h1>AI Trainer - Biceps Curl Counter</h1>
+
+    <!-- Reps Counters -->
+    <div class="counter-container">
+        <p id="right-counter" class="counter">Right Reps: 0</p>
+        <p id="left-counter" class="counter">Left Reps: 0</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-container">
+        <button class="btn" onclick="startCamera()">Start Camera</button>
+        <button class="btn" onclick="stopCamera()">Stop Camera</button>
+        <button class="btn" onclick="resetCounter()">Reset Counter</button>
+    </div>
+
+    <!-- Video Feed -->
+    <div id="video-container">
+        <img id="video-feed" src="">
+    </div>
+
+    <script>
+        var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+        var ws = new WebSocket(ws_scheme + "://" + window.location.host + "/ws/trainer/");
+
+        ws.onmessage = function(event) {
+            var data = event.data.split("|");
+
+            if (data[0] === "reset") {
+                document.getElementById("right-counter").innerText = "Right Reps: 0";
+                document.getElementById("left-counter").innerText = "Left Reps: 0";
+            } else {
+                var rightReps = data[0];
+                var leftReps = data[1];
+                var imageSrc = "data:image/jpeg;base64," + data[2];
+
+                document.getElementById("right-counter").innerText = "Right Reps: " + rightReps;
+                document.getElementById("left-counter").innerText = "Left Reps: " + leftReps;
+                document.getElementById("video-feed").src = imageSrc;
+                document.getElementById("video-feed").style.display = "block";
+            }
+        };
+
+        function startCamera() {
+            ws.send("start");
+        }
+
+        function stopCamera() {
+            ws.send("stop");
+            document.getElementById("video-feed").style.display = "none";
+        }
+
+        function resetCounter() {
+            ws.send("reset");
+        }
+
+        ws.onerror = function() {
+            alert("WebSocket connection failed! Refresh the page.");
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register - Gym</title>
+    <link rel="stylesheet" href="{% static 'css/ss.css' %}">
+</head>
+<body>
+
+
+    <div class="form-container">
+        <h2>Register for Fitness Hub</h2>
+        <form id="register-form">
+            {% csrf_token %}
+        
+            <label>Name:</label>
+            <input type="text" name="name" required><br>
+    
+            <label>Phone Number:</label>
+            <input type="text" name="number" required><br>
+    
+            <label>Email:</label>
+            <input type="email" name="email" id="email" required><br>
+    
+            <button type="button" class="btn" id="generate-otp">Generate OTP</button><br>
+    
+            <div id="otp-section" style="display: none;">
+                <label>Enter OTP:</label>
+                <input type="text" name="otp" id="otp" required>
+                <button type="button" class="btn" id="verify-otp">Verify OTP</button>
+            </div>
+    
+            <div id="extra-fields" style="display: none;">
+                <label>Password:</label>
+                <input type="password" name="password" required><br>
+    
+                <label>Height:</label>
+                <input type="text" name="height"><br>
+    
+                <label>Weight:</label>
+                <input type="text" name="weight"><br>
+    
+                <label>Age:</label>
+                <input type="text" name="age"><br>
+    
+                <label>Gender:</label>
+                <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select><br>
+    
+                <button type="submit" class="btn" >Register</button>
+            </div>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                function getCSRFToken() {
+                    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+                }
+            
+                $("#generate-otp").click(function() {
+                    $("#generate-otp").hide();  // Hide "Generate OTP" button after clicking
+                    var email = $("#email").val();
+                    if (email) {
+                        $.post("/generate_otp/", { email: email, csrfmiddlewaretoken: getCSRFToken() }, function(response) {
+                            alert(response.message);
+                            $("#otp-section").show();
+                        }).fail(function(xhr) {
+                            alert("Error: " + xhr.responseText);
+                        });
+                    } else {
+                        alert("Please enter email first.");
+                    }
+                });
+            
+                $("#verify-otp").click(function() {
+                    $("#verify-otp").hide();  // Hide "Verify OTP" button after success
+                    var otp = $("#otp").val();
+                    var email = $("#email").val();
+                    $.post("/verify_otp/", { email: email, otp: otp, csrfmiddlewaretoken: getCSRFToken() }, function(response) {
+                        if (response.success) {
+                            alert("OTP Verified!");
+                            $("#extra-fields").show();
+                            $("#otp").prop("disabled", true);  // Disable OTP input after verification
+                        } else {
+                            alert(response.error);
+                        }
+                    }).fail(function(xhr) {
+                        alert("Error: " + xhr.responseText);
+                    });
+                });
+            
+                $("#register-form").submit(function(event) {
+                    event.preventDefault();
+                    
+                    var formData = $(this).serialize();
+                    console.log("Submitting form data:", formData);
+            
+                    $.ajax({
+                        type: "POST",  
+                        url: "/register/",
+                        data: formData,
+                        success: function(response) {
+                            console.log("Server Response:", response);
+                            if (response.success) {
+                                alert(response.message);
+                                window.location.href = "/login/";
+                            } else {
+                                alert(response.error);
+                            }
+                        },
+                        error: function(xhr) {
+                            alert("Error: " + xhr.responseText);
+                        }
+                    });
+                });
+            });
+            
+        </script>
+        
+        <p>Already a member? <a href="{% url 'userpage' %}#login">Login</a></p>
+    </div>
+   
+</body>
+</html>

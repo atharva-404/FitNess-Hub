@@ -1,0 +1,235 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+}
+
+h2 {
+    font-size: 36px;
+    margin: 20px 0;
+    text-transform: uppercase;
+    color: #ffcc00;
+}
+
+/* Filter Options */
+form {
+    margin: 20px 0;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #1f1f1f;
+    color: #ffcc00;
+    border: 2px solid #ffcc00;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+select:hover {
+    background-color: #2c2c2c;
+}
+
+/* Video Container */
+.video-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* Video Cards */
+.video-card {
+    background: #1e1e1e;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.6);
+}
+
+.video-card h3 {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #ffcc00;
+}
+
+.video-card p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #ddd;
+}
+
+/* Video Frame */
+iframe {
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+iframe:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .video-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* Header */
+header {
+    
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+	padding: 11px;
+}
+
+header .logo a {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+header .logo a span {
+    color: #ff512f;
+}
+
+/* Navigation */
+header .nav {
+    position: fixed;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    width: 280px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding: 100px 0 15px;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+header .nav.open {
+    transform: translateX(0);
+}
+
+header .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header .nav ul li {
+    display: block;
+}
+
+header .nav ul li a {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    display: block;
+    padding: 12px 30px;
+    transition: 0.3s;
+}
+
+header .nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hamburger Menu */
+header .ham-burger {
+    display: inline-block;
+    cursor: pointer;
+    padding-left: 60%;
+}
+
+header .ham-burger span {
+    height: 3px;
+    margin-bottom: 8px;
+    display: block;
+    background: #fff;
+    width: 30px;
+    transition: transform 0.5s ease;
+}
+
+header .ham-burger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(-6px);
+}
+
+header .ham-burger.active span:nth-child(2) {
+    transform: rotate(-45deg) translateY(6px);
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+}
+/* Ultra Small Back Button */
+.back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;  /* Small button */
+    height: 35px;
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+    position: absolute;
+    top: 22px;
+    right: 80px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.back-btn img {
+    width: 20px;  /* Smaller logo */
+    height: 20px;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #dd2476, #ff512f);
+    transform: scale(1.1);
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+    .back-btn {
+        width: 24px;
+        height: 24px;
+ 
+      
+    }
+
+    .back-btn img {
+        width: 14px;
+        height: 14px;
+    }
+}
