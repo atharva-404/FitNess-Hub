@@ -181,7 +181,7 @@ import json
 from .models import Subscription
 
 # Initialize Razorpay Client
-razorpay_client = razorpay.Client(auth=('rzp_live_7owtDrVKyiULSB','AQivNa1NJFsBQYqz1yTe1KMt'))
+razorpay_client = razorpay.Client(auth=('key','key'))
 
 
 @csrf_exempt

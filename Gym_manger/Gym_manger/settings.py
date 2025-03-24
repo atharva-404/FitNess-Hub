@@ -135,9 +135,8 @@ AUTHENTICATION_BACKENDS = [
    'django.contrib.auth.backends.ModelBackend',  # Default Django backend
 ]
 
-RAZORPAY_KEY_ID = "rzp_live_7owtDrVKyiULSB"
-RAZORPAY_KEY_SECRET = "AQivNa1NJFsBQYqz1yTe1KMt"
-
+RAZORPAY_KEY_ID = "key"
+RAZORPAY_KEY_SECRET = "key"
 
 ASGI_APPLICATION = "Gym_manger.asgi.application"
 CHANNEL_LAYERS = {
